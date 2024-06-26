@@ -24,7 +24,7 @@ public class CalculatorTest {
     @DisplayName("덧셈 연산을 수행한다.")
     @Test
     void additionTest() {
-        int result = Calculator.calculate(1, "+", 2);
+        int result = Calculator.calculate(new PositiveNumber(1), "+", new PositiveNumber(2));
 
         assertThat(result).isEqualTo(3);
     }
@@ -32,7 +32,7 @@ public class CalculatorTest {
     @DisplayName("뺄셈 연산을 수행한다.")
     @Test
     void subtractionTest() {
-        int result = Calculator.calculate(1, "-", 2);
+        int result = Calculator.calculate(new PositiveNumber(1), "-", new PositiveNumber(2));
 
         assertThat(result).isEqualTo(-1);
     }
@@ -43,7 +43,7 @@ public class CalculatorTest {
     @ParameterizedTest
     @MethodSource("formulaAndResult")
     void calculateTest(int operand1, String operator, int operand2, int result) {
-        int calculateResult = Calculator.calculate(operand1, operator, operand2);
+        int calculateResult = Calculator.calculate(new PositiveNumber(operand1), operator, new PositiveNumber(operand2));
 
         assertThat(calculateResult).isEqualTo(result);
     }
@@ -56,12 +56,12 @@ public class CalculatorTest {
                 arguments(4, "/", 2, 2)
         );
     }
-
-    @DisplayName("나눗셈에서 0을 나누는 경우 IllegalArgument 예외를 발생시킨다.")
-    @Test
-    void calculateExceptionTest() {
-        assertThatCode(() -> Calculator.calculate(10, "/", 0))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("0으로는 나눌 수 없습니다.");
-    }
+//    PositiveNumber가 생겨서 필요없어짐
+//    @DisplayName("나눗셈에서 0을 나누는 경우 IllegalArgument 예외를 발생시킨다.")
+//    @Test
+//    void calculateExceptionTest() {
+//        assertThatCode(() -> Calculator.calculate(new PositiveNumber(10), "/", new PositiveNumber(0)))
+//                .isInstanceOf(IllegalArgumentException.class)
+//                .hasMessage("0으로는 나눌 수 없습니다.");
+//    }
 }
