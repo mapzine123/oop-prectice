@@ -10,12 +10,10 @@ public class Courses {
     }
 
     public double multiplyCreditAndCourseGrade() {
-        double multipliedCreditAndCourseGrade = 0;
-        for (Course course : courses) {
-            multipliedCreditAndCourseGrade += course.multiplyCreditAndCourseGrade();
-        }
 
-        return multipliedCreditAndCourseGrade;
+        return courses.stream() // courses를 전부 돌면서
+                .mapToDouble(Course::multiplyCreditAndCourseGrade) // course안의 multiplayCreditAndCourseGrade 함수를 다 실행한 값을 가지고
+                .sum(); // 다 더한다
     }
 
     public int calculateTotalCompletedCredit() {
